@@ -1,6 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var server_1 = require("./server");
-console.log('desde index');
-(0, server_1.sumar)();
+import server from "./server";
+const port = process.env.PORT || 4000;
+server.listen(port, () => {
+    console.log(`Servidor corriendo en el puerto ${port}`);
+});
 //# sourceMappingURL=index.js.map

@@ -7,11 +7,11 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "declaration": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "module": "ESNext",
     "target": "ESNext",
-    "moduleResolution": "Node10"
+    "module": "ESNext",
+    "moduleResolution": "Node10",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*.ts"]
 }
