@@ -8,8 +8,8 @@
     "esModuleInterop": true,
     "declaration": true,
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node10",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
