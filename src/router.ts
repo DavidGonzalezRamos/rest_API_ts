@@ -33,14 +33,14 @@ router.post('/',
 router.put('/:id', 
    //Validacion
    param('id').isInt().withMessage('ID no valido, por favor inserta un numero natural') , 
-   body('nombreCompleto').notEmpty().withMessage('agregar algo'),
-   body('equipo').notEmpty().withMessage('agregar algo'),
+   body('nombreCompleto').notEmpty().withMessage('agregar nombre'),
+   body('equipo').notEmpty().withMessage('agregar equipo'),
    body('numeroDorsal')
        .isNumeric().withMessage('valor no valido')
-       .notEmpty().withMessage('agregar algo')
-       .custom(value => value > 0).withMessage('numero no valido'),
-       body('posicion').notEmpty().withMessage('agregar algo'),
-       body('fechaNacimiento').notEmpty().withMessage('agregar algo'),
+       .notEmpty().withMessage('agregar algo en el dorsal')
+       .custom(value => value >= 0).withMessage('numero no valido'),
+       body('posicion').notEmpty().withMessage('agregar posicion'),
+       body('fechaNacimiento').notEmpty().withMessage('agregar fechaNacimiento'),
        handleInputErrors,
   updateJugador
 )

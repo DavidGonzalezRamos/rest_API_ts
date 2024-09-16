@@ -76,3 +76,90 @@ describe('GET /api/jugador/:id', () =>{
     expect(response.body).toHaveProperty('data')
   })
 })
+
+describe('PUT /api/jugador/:id', () =>{
+
+  test('Should check a valid ID in the URL', async ()=>{
+    const response = await request(server)
+      .put('/api/jugador/not-valid-url')
+      .send({
+        "nombreCompleto": "axelPUT - testing",
+        "equipo": "ESCOM",
+        "numeroDorsal": 3,
+        "posicion": "escolta",
+        "fechaNacimiento": "2002-11-13"
+      })
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty('errors')
+    expect(response.body.errors).toHaveLength(1)
+    expect(response.body.errors[0].msg).toBe('ID no valido, por favor inserta un numero natural')
+  })
+
+  test('should display validation error messages when updating a jugador', async() => {
+    const response = await request(server).put('/api/jugador/1').send({})
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty('errors')
+    expect(response.body.errors).toBeTruthy()
+    expect(response.body.errors).toHaveLength(7)
+
+    expect(response.status).not.toBe(200)
+    expect(response.body).not.toHaveProperty('data')
+  })
+
+
+  test('should validate numeroDorsal had been update correctly', async() => {
+    const response = await request(server)
+    .put('/api/jugador/1')
+    .send({
+      "nombreCompleto": "axelPUT - testing",
+      "equipo": "ESCOM",
+      "numeroDorsal": -1,
+      "posicion": "escolta",
+      "fechaNacimiento": "2002-11-13"
+    })
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty('errors')
+    expect(response.body.errors).toBeTruthy()
+    expect(response.body.errors).toHaveLength(1)
+    expect(response.body.errors[0].msg).toBe('numero no valido')
+
+    expect(response.status).not.toBe(200)
+    expect(response.body).not.toHaveProperty('data')
+  })
+
+  test('should return a 404 response for a non-exist jugador', async() => {
+    const jugadorId=2000
+    const response = await request(server)
+    .put(`/api/jugador/${jugadorId}`)
+    .send({
+      "nombreCompleto": "axelPUT - testing",
+      "equipo": "ESCOM",
+      "numeroDorsal": 3,
+      "posicion": "escolta",
+      "fechaNacimiento": "2002-11-13"
+    })
+    expect(response.status).toBe(404)
+    expect(response.body.error).toBe('No existe ese jugador')
+
+    expect(response.status).not.toBe(200)
+    expect(response.body).not.toHaveProperty('data')
+  })
+
+  test('should update an existing jugador', async() => {
+    const response = await request(server)
+    .put(`/api/jugador/1`)
+    .send({
+      "nombreCompleto": "axelPUT - testing",
+      "equipo": "ESCOM",
+      "numeroDorsal": 3,
+      "posicion": "escolta",
+      "fechaNacimiento": "2002-11-13"
+    })
+    expect(response.status).toBe(200)
+    expect(response.body).toHaveProperty('data')
+
+    expect(response.status).not.toBe(400)
+    expect(response.body).not.toHaveProperty('errors')
+  })
+})
+
