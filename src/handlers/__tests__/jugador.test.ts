@@ -163,6 +163,25 @@ describe('PUT /api/jugador/:id', () =>{
   })
 })
 
+describe('PATCH /api/jugador/:id', ()=>{
+  test('should return a 404 response for a non-existent jugador', async ()=>{
+    const jugadorId= 2000
+    const response = await request(server).patch(`/api/jugador/${jugadorId}`)
+    expect(response.status).toBe(404)
+    expect(response.body.error).toBe('No existe ese jugador')
+    expect(response.status).not.toBe(200)
+    expect(response.body).not.toHaveProperty('data')
+  })
+
+  test('should update posicion jugador', async ()=>{
+    const response = await request(server).patch('/api/jugador/1')
+    expect(response.status).toBe(200)
+    expect(response.body).toHaveProperty('data')
+    expect(response.status).not.toBe(400)
+    expect(response.body).not.toHaveProperty('error')
+  })
+})
+
 describe('DELETE /api/jugador/:id', () =>{
   test('should check a valid ID', async ()=>{
     const response = await request(server).delete('/api/jugador/not-valid')
