@@ -35,12 +35,12 @@ describe('POST /api/jugador',()=>{
 
 describe('GET /api/jugador', () => {
 
-  test('should check if api/products url exists', async () =>{
+  test('should check if api/jugador url exists', async () =>{
     const response = await request(server).get('/api/jugador')
     expect(response.status).not.toBe(404)
   })
 
-  test('GET a JSON response with products', async ()=>{
+  test('GET a JSON response with jugador', async ()=>{
     const response = await request(server).get('/api/jugador')
     expect(response.status).toBe(200)
     expect(response.headers['content-type']).toMatch(/json/)
@@ -70,7 +70,7 @@ describe('GET /api/jugador/:id', () =>{
     expect(response.body.errors[0].msg).toBe('ID no valido, por favor inserta un numero natural')
   })
 
-  test('Get JSON response for a single product', async ()=>{
+  test('Get JSON response for a single jugador', async ()=>{
     const response = await request(server).get('/api/jugador/1')
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty('data')
@@ -163,3 +163,28 @@ describe('PUT /api/jugador/:id', () =>{
   })
 })
 
+describe('DELETE /api/jugador/:id', () =>{
+  test('should check a valid ID', async ()=>{
+    const response = await request(server).delete('/api/jugador/not-valid')
+    expect(response.status).toBe(400)
+    expect(response.body).toHaveProperty('errors')
+    expect(response.body.errors[0].msg).toBe('ID no valido, por favor inserta un numero natural')
+    expect(response.body.errors).toHaveLength(1)
+  })
+
+  test('should return a 404 response for a non-existent jugador', async ()=>{
+    const jugadorId= 2000
+    const response = await request(server).delete(`/api/jugador/${jugadorId}`)
+    expect(response.status).toBe(404)
+    expect(response.body.error).toBe('No existe ese jugador')
+    expect(response.status).not.toBe(200)
+  })
+
+  test('should delete jugador', async ()=>{
+    const response = await request(server).delete('/api/jugador/1')
+    expect(response.status).toBe(200)
+    expect(response.body.data).toBe('Jugador borrado')
+    expect(response.status).not.toBe(400)
+    expect(response.status).not.toBe(404)
+  })
+})
