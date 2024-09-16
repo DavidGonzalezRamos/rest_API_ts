@@ -34,7 +34,7 @@ export const createJugador = async (req: Request, res: Response) => {
 
     try {
       const jugador = await Jugador.create(req.body)
-      res.json({data: jugador})
+      res.status(201).json({data: jugador})
     } catch (error) {
       console.log(error)
     }

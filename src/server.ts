@@ -26,7 +26,7 @@ server.use(express.json())
 server.use('/api/jugador', router)
 
 server.get('/api', (req, res)=>{
-  res.json({msg: 'desde API'})
+  res.json({msg: 'Desde API'})
 })
 
 
