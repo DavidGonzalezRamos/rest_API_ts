@@ -2,7 +2,6 @@ import { Request, Response } from "express"
 import Jugador from "../models/Jugador.model"
 
 export const getJugador = async (req: Request, res: Response)=>{
-try {
   const jugador = await Jugador.findAll({
     order: [
       ['nombreCompleto', 'DESC']
@@ -10,12 +9,9 @@ try {
     attributes: {exclude: ['createdAt', 'updatedAt']}
   })
   res.json({data: jugador})
-} catch (error) {
-  console.log(error)
-}}
+}
 
 export const getJugadorById = async (req: Request, res: Response)=>{
-  try {
   const {id} = req.params
   const jugador = await Jugador.findByPk(id)
 
@@ -26,19 +22,11 @@ export const getJugadorById = async (req: Request, res: Response)=>{
   }
 
   res.json({data: jugador})
-  } catch (error) {
-    console.log(error)
-  }}
+  }
   
 export const createJugador = async (req: Request, res: Response) => {
-
-    try {
-      const jugador = await Jugador.create(req.body)
-      res.status(201).json({data: jugador})
-    } catch (error) {
-      console.log(error)
-    }
-  
+  const jugador = await Jugador.create(req.body)
+  res.status(201).json({data: jugador})
 }
 
 export const updateJugador = async (req: Request, res: Response)=>{
