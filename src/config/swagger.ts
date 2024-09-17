@@ -5,8 +5,8 @@ const options : swaggerJSDoc.Options = {
     openapi: '3.0.2',
     tags: [
       {
-        name: 'Jugador',
-        description: 'API operations related to Jugador'
+        name: 'Jugadores',
+        description: 'API operations related to Jugadores'
       }
     ],
     info: {
