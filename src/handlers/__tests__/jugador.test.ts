@@ -202,7 +202,7 @@ describe('DELETE /api/jugador/:id', () =>{
   test('should delete jugador', async ()=>{
     const response = await request(server).delete('/api/jugador/1')
     expect(response.status).toBe(200)
-    expect(response.body.data).toBe('Jugador eliminado')
+    expect(response.body.data).toBe('Jugador borrado')
     expect(response.status).not.toBe(400)
     expect(response.status).not.toBe(404)
   })
